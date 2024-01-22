@@ -23,6 +23,25 @@ def unzip_file(filename):
   zip_ref = zipfile.ZipFile(filename, "r") # read mode (check write, append and exclusive modes)
   zip_ref.extractall()
   zip_ref.close()
+  return 1
+
+import datetime
+
+def create_tensorboard_callback(dir_name, experiment_name):
+  """
+  It creates a tensorboard callback instand to store log files.
+
+  Store log files with filepath:
+    "dir_name/experiment_name/current_datetime/"
+
+  Args:
+    dir_name: target directory to store TensorBoard log files
+    experiment_name: name of experiment directory
+  """
+  log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+  tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
+  print(f"Saving TensorBoard log files into: ", log_dir)
+  return tensorboard_callback
 
 # Walk through an image classification directory and find out how many files (images)
 
@@ -43,24 +62,6 @@ def walk_in_dir(dir_path):
   """
   for dir_path, dir_names, file_names in os.walk(dir_path):
     print(f"There are {len(dir_names)} of directories and {len(file_names)} images in {dir_path}.")
-
-import datetime
-
-def create_tensorboard_callback(dir_name, experiment_name):
-  """
-  It creates a tensorboard callback instand to store log files.
-
-  Store log files with filepath:
-    "dir_name/experiment_name/current_datetime/"
-
-  Args:
-    dir_name: target directory to store TensorBoard log files
-    experiment_name: name of experiment directory
-  """
-  log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-  tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
-  print(f"Saving TensorBoard log files into: ", log_dir)
-  return tensorboard_callback
 
 import matplotlib.pyplot as plt
 
