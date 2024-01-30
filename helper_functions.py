@@ -77,7 +77,7 @@ def plot_loss_curves(history):
   val_loss = history.history["val_loss"]
 
   acc = history.history["accuracy"]
-  val_acc = history.history["vall_accuracy"]
+  val_acc = history.history["val_accuracy"]
 
   epochs = range(len(history.history["loss"]))
 
